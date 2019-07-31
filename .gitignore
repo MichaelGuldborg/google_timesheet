@@ -1,0 +1,15 @@
+
+
+.idea/*
+
+# google credentials
+credentials.json
+token.pickle
+
+# output files
+output/*
+.csv
+
+
+output_not_requested/
+__pycache__
