@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import sys
 import csv
 from datetime import datetime
 
@@ -13,25 +14,32 @@ from reportlab.platypus import *
 
 from credentials import fetch_credentials
 
+
 calendar_id_minejendom = "5drdnd66pka1v7m5n2o7usn1n0@group.calendar.google.com"
 calendar_id_sidecourt = "qmb4l18ht68lehg6mgrdv9o2b8@group.calendar.google.com"
 
 
 def main():
     """ Fetch google calendar events and write timestamps to csv and pdf """
+    print("Arguments")
+    print(sys.argv)
+    if len(sys.argv) is not 2:
+        print("You must supply a month from 1-12")
+        exit(0)
+
+    month_from = int(sys.argv[1])
+    month_to = month_from + 1
 
     print('Fetching credentials')
     creds = fetch_credentials()
     service = build('calendar', 'v3', credentials=creds)
 
 
-
-
     # Define script configs
     name = "Michael Guldborg Consulting"
-    calendar_id = calendar_id_minejendom # calendar_id_sidecourt # 
-    time_min = datetime(2019, 6, 20, 00, 00, 00)
-    time_max = datetime(2019, 7, 19, 23, 59, 00)
+    calendar_id = calendar_id_minejendom # calendar_id_minejendom # calendar_id_sidecourt # 
+    time_min = datetime(2019, month_from, 20, 00, 00, 00)
+    time_max = datetime(2019, month_to, 19, 23, 59, 00)
     time_min_iso = time_min.isoformat() + 'Z'  # 'Z' indicates UTC time
     time_max_iso = time_max.isoformat() + 'Z'  # 'Z' indicates UTC time
 
